@@ -1,0 +1,6 @@
+com.salesianos.dam.cafeteria
+com.salesianos.dam.cafeteria.controller
+com.salesianos.dam.cafeteria.modelo
+com.salesianos.dam.cafeteria.repositorio
+com.salesianos.dam.cafeteria.servicio
+com.salesianos.dam.cafeteria.servicio.base

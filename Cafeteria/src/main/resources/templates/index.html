@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+
+    <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <header>            
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary navegador">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand col-lg-1 d-none d-lg-block" th:href="@{/}"><img  src="/img/coffee-shop.svg" width="70px" alt="Logo"></a>
+                <div class="collapse navbar-collapse col-lg-8" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active my-element" aria-current="page" th:href="@{/nuevo}">Agregar nuevo producto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/}">Listar todos los productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Quiénes somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Dónde estamos</a>
+                        </li>
+                    </ul>
+                </div>
+                <form class="d-flex ms-5 col-lg-3">
+                     <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
+                     <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+               </form>
+            </div>
+        </nav>
+    </header>
+    <!--Categorías-->
+    <div class="container">
+    <h1 class="text-center mt-3">Categorías</h1>
+        <div class="row">
+        <!-- Por medio de un foreach lista todas las categorías -->
+            <div class="col mt-5" style="width: 10rem;" th:each="categoria : ${categorias}">
+                <a><img style="max-width: 70%;"  src="https://www.starbucks.es/media/Starbucks-Blonde-Americano_tcm31-53275_w1024_n.jpg" th:src="${#strings.isEmpty(categoria.imagen)} ? 'https://www.starbucks.es/media/food-default-image_tcm31-10869_w1024_n.png' : ${categoria.imagen}"
+				class="img-responsive rounded mt-2" alt="Categorias"></a> 
+                <div class="card-body">
+                    <a href="#" th:href="@{/productos/categoria/{id}(id=${categoria.id})}"  th:text="${categoria.nombre}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="container">
+                    <div class="row">
+                        <!--Main-->
+                            <main class="col-lg-8">
+                                <h1 class="mb-5">Productos</h1>
+                                <div class="container">
+                                    <div class="row  row-cols-md-3 ">
+                                        <!--Card de los distintos productos mostrados por medio de un foreach-->
+                                        <div th:each="producto : ${listaProductos}" class="col shadow p-3 mb-5 bg-body rounded mr-5 ">
+                                            <div class="card h-100 ">
+                                            <!-- Imágen del producto, si no se le proporciona por medio de un url toma una por defecto proporcionada aquí -->
+                                                <img style="max-width: 70%;"  src="https://www.starbucks.es/media/Starbucks-Blonde-Americano_tcm31-53275_w1024_n.jpg" th:src="${#strings.isEmpty(producto.imagen)} ? 'https://www.starbucks.es/media/food-default-image_tcm31-10869_w1024_n.png' : ${producto.imagen}"
+										class="img-responsive rounded mx-auto d-block mt-2" alt="Comida">
+										<!-- Lista los atributos de los distintos productos -->
+                                                <div class="card-body">
+                                                    <h5 th:text="${producto.nombre}" class="card-title">Card title</h5>
+                                                    <p th:text="${producto.descripcion}" class="card-text">This is a longer card with supporting text below as a natural .</p>
+                                                    <p th:text="${producto.pvp + '€'}">3.30</p>
+                                                    <div class="d-flex justify-content-center">
+                                                    <!-- Botón de editar producto -->
+                                                        <div class="col-6">
+                                                            <a href="#" th:href="@{/editar/{id}(id=${producto.id})}"><button type="submit" id="boton" class="btn btn-info" ><i class="fas fa-edit"></i></button></a>    
+                                                        </div>
+                                                    <!-- Botón de borrar producto -->
+                                                        <div class="col-6">
+                                                            <a href="#" th:href="@{/borrar/{id}(id=${producto.id})}"><button data-bs-target="#exampleModal" type="submit" id="boton" class="btn btn-danger" data-bs-toggle="modal"  th:data-id="${producto.id}"><i class="fas fa-trash"></i></button></a>  
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Fin-->
+                                    </div>
+                                </div>
+                            </main>
+
+                        <!--Imagen publicitaria-->
+                        <aside class="col-lg-4 d-none d-lg-block mt-5">
+                            <img src="/img/promo.jpg" class="img-fluid rounded" alt="Promoción">
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-center text-white">
+        <div class="container p-4">
+            <section class="mb-4">
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-square"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
+            </section>
+
+            <section class="">
+                <form action="">
+	                <div class="row d-flex justify-content-center">
+	                    <div class="col-auto">
+		                    <p class="pt-2">
+		                        <strong>Contacta con nosotros</strong>
+		                    </p>
+	                    </div>
+	                    <div class="col-md-5 col-12">
+		                    <div class="form-outline form-white mb-4">
+		                        <input type="email" id="form5Example2" class="form-control" />
+		                        <label class="form-label" for="form5Example2">Email</label>
+		                    </div>
+	                    </div>
+	                    <div class="col-auto">
+		                    <button type="submit" class="btn btn-outline-light mb-4">
+		                        Enviar
+		                    </button>
+	                    </div>
+	                </div>
+                </form>
+            </section>
+            <section class="mb-4">
+                <p>
+                    Cada día, acudimos a trabajar con la esperanza de conseguir dos cosas: compartir el mejor café con nuestros amigos y contribuir a que el mundo sea un poco mejor. Así era cuando abrió la primera tienda en 1971, y así continúa siendo hoy.
+                </p>
+            </section>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            <p>© Todos nuestros los derechos reservados</p>
+        </div>
+    </footer>
+	
+	<!-- Api de íconos -->
+    <script src="https://kit.fontawesome.com/6559b86813.js" crossorigin="anonymous"></script>
+    <!-- Api de animaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+	 <!-- JS -->
+    <script src="../static/js/script.js"  th:src="@{/js/script.js}"></script>
+</body>
+</html>

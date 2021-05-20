@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.salesianos.dam.cafeteria"},{"l":"com.salesianos.dam.cafeteria.controller"},{"l":"com.salesianos.dam.cafeteria.modelo"},{"l":"com.salesianos.dam.cafeteria.repositorio"},{"l":"com.salesianos.dam.cafeteria.servicio"},{"l":"com.salesianos.dam.cafeteria.servicio.base"}];updateSearchResults();
